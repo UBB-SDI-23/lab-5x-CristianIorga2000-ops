@@ -1,7 +1,8 @@
 export default class BaseAPI {
     constructor(resource) {
-      this.baseURL = 'http://35.228.0.43/api';
+      this.baseURL = 'http://127.0.0.1:8000/api';
       this.resource = resource;
+      this.finalURL = this.baseURL
     }
   
     async getResource() {

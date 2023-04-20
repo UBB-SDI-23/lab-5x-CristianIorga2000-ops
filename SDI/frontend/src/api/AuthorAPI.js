@@ -7,6 +7,7 @@ export default class AuthorAPI extends BaseAPI {
 
   async getTotalRoyalty() {
     const response = await fetch(`${this.baseURL}/${this.resource}/total_royalty`);
-    return response;
+    const data = await response.json();
+    return data;
   }
 }

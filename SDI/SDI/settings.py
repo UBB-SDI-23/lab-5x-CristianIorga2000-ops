@@ -25,9 +25,6 @@ SECRET_KEY = 'django-insecure-o1llbzv6em0w_we7%@c4@&r&4qda$8ciwdte=n-wg9gg@#6bh6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.228.0.43', '127.0.0.1', '172.23.81.189', 'localhost']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,18 +38,22 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'app'
 ]
-CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
+ALLOWED_HOSTS=["127.0.0.1"]
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = [
+    "http://172.23.81.189:8080",  # Add the IP address of your Vue.js app
+]
 ROOT_URLCONF = 'SDI.urls'
 
 TEMPLATES = [

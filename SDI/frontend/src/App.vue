@@ -1,33 +1,49 @@
 <template>
-<div id="app">
-  <AuthorCrud />
-  <BookCrud />
-  <ReviewCrud />
-  <AuthorshipCrud />
-</div>
+  <v-app>
+    <v-navigation-drawer app>
+      <v-list dense>
+        <v-list-item @click="$router.push('/')">
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="$router.push('/authors')">
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Authors</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="$router.push('/statistics')">
+          <v-list-item-action>
+            <v-icon>mdi-chart-bar</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Statistics</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-toolbar-title>Book Review App</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
-import AuthorCrud from "./components/AuthorCrud.vue";
-import BookCrud from "./components/BookCrud.vue";
-import ReviewCrud from "./components/ReviewCrud.vue";
-import AuthorshipCrud from "./components/AuthorshipCrud.vue";
-
-
 export default {
   name: 'App',
-
-  components: {
-  AuthorCrud,
-  BookCrud,
-  ReviewCrud,
-  AuthorshipCrud,
-},
-
-
-  data: () => ({
-    //
-  }),
-}
+};
 </script>

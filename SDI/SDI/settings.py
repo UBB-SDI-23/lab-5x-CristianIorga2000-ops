@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-o1llbzv6em0w_we7%@c4@&r&4qda$8ciwdte=n-wg9gg@#6bh6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.228.0.43']
+ALLOWED_HOSTS = ['35.228.0.43', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'drf_spectacular',
     'app'
 ]
 CORS_ORIGIN_ALLOW_ALL = True
@@ -124,3 +125,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # ... existing settings ...
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}

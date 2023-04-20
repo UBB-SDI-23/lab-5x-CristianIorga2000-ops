@@ -6,7 +6,7 @@ export default class AuthorAPI extends BaseAPI {
   }
 
   async getTotalRoyalty() {
-    const response = await this.getResource('total_royalty');
+    const response = await fetch(`${this.baseURL}/${this.resource}/total_royalty`);
     return response;
   }
 }

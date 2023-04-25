@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ALLOWED_HOSTS=["127.0.0.1"]
+ALLOWED_HOSTS=["127.0.0.1", "35.228.0.43"]
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Add the IP address of your Vue.js app

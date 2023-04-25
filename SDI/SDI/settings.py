@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ALLOWED_HOSTS=["127.0.0.1"]
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
-    "http://172.23.81.189:8080",  # Add the IP address of your Vue.js app
+    "http://localhost:5173",  # Add the IP address of your Vue.js app
 ]
 ROOT_URLCONF = 'SDI.urls'
 

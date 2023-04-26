@@ -47,6 +47,6 @@ class Authorship(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     contribution = models.CharField(max_length=100, validators=[MaxLengthValidator(50)])
     royalty_percentage = models.DecimalField(max_digits=5, decimal_places=2)
-
+    # ADD ONE MORE FIELD HERE!
     def __str__(self):
         return f"{self.author.name} - {self.book.title}"

@@ -10,7 +10,7 @@ fake = Faker()
 NUM_AUTHORS = 1000000
 NUM_BOOKS = 1000000
 NUM_REVIEWS = 1000000
-NUM_AUTHORSHIPS = 10000000
+NUM_AUTHORSHIPS = 1000000
 LOG_PROGRESS_EVERY = 100000
 
 class Command(BaseCommand):
@@ -28,6 +28,8 @@ class Command(BaseCommand):
         self.generate_books()
         self.generate_reviews()
         self.generate_authorships()
+        self.stdout.write("All models successfully populated.")
+
 
     def execute_sql_scripts(self):
         db_settings = settings.DATABASES['default']
@@ -36,8 +38,12 @@ class Command(BaseCommand):
         password = db_settings['PASSWORD']
         db_name = db_settings['NAME']
 
+        os.environ['PGPASSWORD'] = password
+
         for filename in ('authors.sql', 'books.sql', 'reviews.sql', 'authorships.sql'):
             subprocess.run(f"psql -h {host} -U {user} -d {db_name} -f {filename}", shell=True, check=True)
+
+        del os.environ['PGPASSWORD']
 
     def generate_authors(self):
         self.stdout.write("Generating authors...")
@@ -46,7 +52,7 @@ class Command(BaseCommand):
                 name = fake.name()
                 email = fake.email()
                 bio = fake.text()
-                authors_file.write(f"INSERT INTO app_name_author (name, email, bio) VALUES ('{name}', '{email}', '{bio}');\n")
+                authors_file.write(f"INSERT INTO app_author (name, email, bio) VALUES ('{name}', '{email}', '{bio}');\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authors")
         self.stdout.write("Authors successfully generated.")
@@ -58,7 +64,7 @@ class Command(BaseCommand):
                 title = fake.sentence(nb_words=4)
                 summary = fake.text()
                 published_date = fake.date_between(start_date='-30y', end_date='today')
-                books_file.write(f"INSERT INTO app_name_book (title, summary, published_date) VALUES ('{title}', '{summary}', '{published_date}');\n")
+                books_file.write(f"INSERT INTO app_book (title, summary, published_date) VALUES ('{title}', '{summary}', '{published_date}');\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} books")
         self.stdout.write("Books successfully generated.")
@@ -71,10 +77,10 @@ class Command(BaseCommand):
                 reviewer_name = fake.name()
                 review_text = fake.text()
                 rating = random.randint(1, 5)
-                reviews_file.write(f"INSERT INTO app_name_review (book_id, reviewer_name, review_text, rating) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating});\n")
+                reviews_file.write(f"INSERT INTO app_review (book_id, reviewer_name, review_text, rating) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating});\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} reviews")
-                    self.stdout.write("Reviews successfully generated.")
+                self.stdout.write("Reviews successfully generated.")
     def generate_authorships(self):
         self.stdout.write("Generating authorships...")
         with open("authorships.sql", "w") as authorships_file:
@@ -83,8 +89,7 @@ class Command(BaseCommand):
                 book_id = i % NUM_BOOKS + 1
                 contribution = fake.job()
                 royalty_percentage = round(random.uniform(0.01, 5.0), 2)
-                authorships_file.write(f"INSERT INTO app_name_authorship (author_id, book_id, contribution, royalty_percentage) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage});\n")
+                authorships_file.write(f"INSERT INTO app_authorship (author_id, book_id, contribution, royalty_percentage) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage});\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authorships")
         self.stdout.write("Authorships successfully generated.")
-        self.stdout.write("All models successfully populated.")

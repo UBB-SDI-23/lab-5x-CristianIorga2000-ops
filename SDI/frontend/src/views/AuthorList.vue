@@ -3,6 +3,10 @@
     <h1>Authors</h1>
     <DataTable v-if="authors" :value="authors" :sortField="sortField" :sortOrder="sortOrder" @sort="onSort">
       <Column field="name" header="Name" sortable></Column>
+      <Column field="email" header="Email" sortable></Column>
+      <Column field="bio" header="Bio" sortable></Column>
+      <Column field="created_at" header="Created at" sortable></Column>
+      <Column field="updated_at" header="Updated at" sortable></Column>
       <Column header="Actions">
         <template #body="slotProps">
           <router-link :to="`/authors/${slotProps.data.id}/edit`">Edit</router-link>

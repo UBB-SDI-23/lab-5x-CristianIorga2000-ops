@@ -49,10 +49,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ALLOWED_HOSTS=["127.0.0.1", "35.228.0.43"]
+ALLOWED_HOSTS=["35.228.0.43"]
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Add the IP address of your Vue.js app
+     "http://35.228.0.43",  # Add the IP address of your Vue.js app
 ]
 ROOT_URLCONF = 'SDI.urls'
 
@@ -84,7 +84,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { DataTable, Column } from 'primevue/datatable';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 import api from '../services/api';
 
 export default {

@@ -80,7 +80,7 @@ class Command(BaseCommand):
                 reviews_file.write(f"INSERT INTO app_review (book_id, reviewer_name, review_text, rating) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating});\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} reviews")
-                self.stdout.write("Reviews successfully generated.")
+        self.stdout.write("Reviews successfully generated.")
     def generate_authorships(self):
         self.stdout.write("Generating authorships...")
         with open("authorships.sql", "w") as authorships_file:

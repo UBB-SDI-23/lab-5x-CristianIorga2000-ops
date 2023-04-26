@@ -8,8 +8,7 @@ pkill -9 node
 sudo systemctl restart nginx
 
 # Run backend and frontend servers in the background
-cd /path/to/backend
 nohup pipenv run python manage.py runserver > backend.log 2>&1 &
-cd /path/to/frontend
+cd frontend
 nohup npm run dev > frontend.log 2>&1 &
 cd ..

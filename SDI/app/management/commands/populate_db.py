@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 name = fake.name().replace("'", "''")
                 email = fake.email()
                 bio = fake.text().replace("'", "''")
-                authors_file.write(f"INSERT INTO myapp_author (name, email, bio, created_at, updated_at) VALUES ('{name}', '{email}', '{bio}', NOW(), NOW());\n")
+                authors_file.write(f"INSERT INTO app_author (name, email, bio, created_at, updated_at) VALUES ('{name}', '{email}', '{bio}', NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authors")
         self.stdout.write("Authors successfully generated.")
@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 title = fake.sentence().replace("'", "''")
                 summary = fake.text().replace("'", "''")
                 published_date = fake.date_between(start_date='-30y', end_date='today')
-                books_file.write(f"INSERT INTO myapp_book (title, summary, published_date, created_at, updated_at) VALUES ('{title}', '{summary}', '{published_date}', NOW(), NOW());\n")
+                books_file.write(f"INSERT INTO app_book (title, summary, published_date, created_at, updated_at) VALUES ('{title}', '{summary}', '{published_date}', NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} books")
         self.stdout.write("Books successfully generated.")
@@ -77,7 +77,7 @@ class Command(BaseCommand):
                 reviewer_name = fake.name().replace("'", "''")
                 review_text = fake.text().replace("'", "''")
                 rating = fake.random_int(min=1, max=5)
-                reviews_file.write(f"INSERT INTO myapp_review (book_id, reviewer_name, review_text, rating, created_at, updated_at) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating}, NOW(), NOW());\n")
+                reviews_file.write(f"INSERT INTO app_review (book_id, reviewer_name, review_text, rating, created_at, updated_at) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating}, NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} reviews")
         self.stdout.write("Reviews successfully generated.")
@@ -90,7 +90,7 @@ class Command(BaseCommand):
                 book_id = random.randint(1, NUM_BOOKS)
                 contribution = fake.job().replace("'", "''")
                 royalty_percentage = fake.random_number(digits=5, fix_len=True)
-                authorships_file.write(f"INSERT INTO myapp_authorship (author_id, book_id, contribution, royalty_percentage, created_at, updated_at) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage}, NOW(), NOW());\n")
+                authorships_file.write(f"INSERT INTO app_authorship (author_id, book_id, contribution, royalty_percentage, created_at, updated_at) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage}, NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authorships")
         self.stdout.write("Authorships successfully generated.")

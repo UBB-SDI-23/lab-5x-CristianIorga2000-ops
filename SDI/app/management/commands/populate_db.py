@@ -7,10 +7,10 @@ from faker import Faker
 
 fake = Faker()
 
-NUM_AUTHORS = 1000000
-NUM_BOOKS = 1000000
-NUM_REVIEWS = 1000000
-NUM_AUTHORSHIPS = 1000000
+NUM_AUTHORS = 10
+NUM_BOOKS = 10
+NUM_REVIEWS = 10
+NUM_AUTHORSHIPS = 10
 LOG_PROGRESS_EVERY = 100000
 
 class Command(BaseCommand):
@@ -49,10 +49,10 @@ class Command(BaseCommand):
         self.stdout.write("Generating authors...")
         with open("authors.sql", "w") as authors_file:
             for i in range(NUM_AUTHORS):
-                name = fake.name()
+                name = fake.name().replace("'", "''")
                 email = fake.email()
-                bio = fake.text()
-                authors_file.write(f"INSERT INTO app_author (name, email, bio) VALUES ('{name}', '{email}', '{bio}');\n")
+                bio = fake.text().replace("'", "''")
+                authors_file.write(f"INSERT INTO myapp_author (name, email, bio, created_at, updated_at) VALUES ('{name}', '{email}', '{bio}', NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authors")
         self.stdout.write("Authors successfully generated.")
@@ -61,10 +61,10 @@ class Command(BaseCommand):
         self.stdout.write("Generating books...")
         with open("books.sql", "w") as books_file:
             for i in range(NUM_BOOKS):
-                title = fake.sentence(nb_words=4)
-                summary = fake.text()
+                title = fake.sentence().replace("'", "''")
+                summary = fake.text().replace("'", "''")
                 published_date = fake.date_between(start_date='-30y', end_date='today')
-                books_file.write(f"INSERT INTO app_book (title, summary, published_date) VALUES ('{title}', '{summary}', '{published_date}');\n")
+                books_file.write(f"INSERT INTO myapp_book (title, summary, published_date, created_at, updated_at) VALUES ('{title}', '{summary}', '{published_date}', NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} books")
         self.stdout.write("Books successfully generated.")
@@ -73,23 +73,24 @@ class Command(BaseCommand):
         self.stdout.write("Generating reviews...")
         with open("reviews.sql", "w") as reviews_file:
             for i in range(NUM_REVIEWS):
-                book_id = i % NUM_BOOKS + 1
-                reviewer_name = fake.name()
-                review_text = fake.text()
-                rating = random.randint(1, 5)
-                reviews_file.write(f"INSERT INTO app_review (book_id, reviewer_name, review_text, rating) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating});\n")
+                book_id = random.randint(1, NUM_BOOKS)
+                reviewer_name = fake.name().replace("'", "''")
+                review_text = fake.text().replace("'", "''")
+                rating = fake.random_int(min=1, max=5)
+                reviews_file.write(f"INSERT INTO myapp_review (book_id, reviewer_name, review_text, rating, created_at, updated_at) VALUES ({book_id}, '{reviewer_name}', '{review_text}', {rating}, NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} reviews")
         self.stdout.write("Reviews successfully generated.")
+
     def generate_authorships(self):
         self.stdout.write("Generating authorships...")
         with open("authorships.sql", "w") as authorships_file:
             for i in range(NUM_AUTHORSHIPS):
-                author_id = i % NUM_AUTHORS + 1
-                book_id = i % NUM_BOOKS + 1
-                contribution = fake.job()
-                royalty_percentage = round(random.uniform(0.01, 5.0), 2)
-                authorships_file.write(f"INSERT INTO app_authorship (author_id, book_id, contribution, royalty_percentage) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage});\n")
+                author_id = random.randint(1, NUM_AUTHORS)
+                book_id = random.randint(1, NUM_BOOKS)
+                contribution = fake.job().replace("'", "''")
+                royalty_percentage = fake.random_number(digits=5, fix_len=True)
+                authorships_file.write(f"INSERT INTO myapp_authorship (author_id, book_id, contribution, royalty_percentage, created_at, updated_at) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage}, NOW(), NOW());\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authorships")
         self.stdout.write("Authorships successfully generated.")

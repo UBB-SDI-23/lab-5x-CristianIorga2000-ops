@@ -7,10 +7,10 @@ export PGHOST="localhost"
 export PGDATABASE="your_database_name"
 
 # Drop the existing database
-dropdb --if-exists --username="$PGUSER" --password="$PGPASSWORD" --host="$PGHOST" "$PGDATABASE"
+dropdb --if-exists --username="$PGUSER" --host="$PGHOST" "$PGDATABASE"
 
 # Create a new database
-createdb --username="$PGUSER" --password="$PGPASSWORD" --host="$PGHOST" "$PGDATABASE"
+createdb --username="$PGUSER" --host="$PGHOST" "$PGDATABASE"
 
 # Run migrations
 pipenv run python manage.py migrate

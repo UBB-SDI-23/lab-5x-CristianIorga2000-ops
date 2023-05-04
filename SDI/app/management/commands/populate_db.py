@@ -89,7 +89,7 @@ class Command(BaseCommand):
                 author_id = random.randint(1, NUM_AUTHORS)
                 book_id = random.randint(1, NUM_BOOKS)
                 contribution = fake.job().replace("'", "''")
-                royalty_percentage = fake.random_number(digits=5, fix_len=True)
+                royalty_percentage = round(fake.uniform(0, 100), 2)
                 authorships_file.write(f"INSERT INTO app_authorship (author_id, book_id, contribution, royalty_percentage) VALUES ({author_id}, {book_id}, '{contribution}', {royalty_percentage});\n")
                 if (i + 1) % LOG_PROGRESS_EVERY == 0:
                     self.stdout.write(f"Generated {i + 1} authorships")

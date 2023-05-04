@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'SDI.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'your_database_name',
-        'USER': 'your_database_user',
-        'PASSWORD': 'your_database_password',
+        'NAME': 'mpi',
+        'USER': 'cristian_iorga2000',
+        'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '5432',
     }

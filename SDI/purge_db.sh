@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set PostgreSQL credentials
-export PGUSER="your_database_user"
-export PGPASSWORD="your_database_password"
+export PGUSER="cristian_iorga2000"
+export PGPASSWORD="123"
 export PGHOST="localhost"
-export PGDATABASE="your_database_name"
+export PGDATABASE="mpi"
 
 # Drop the existing database
 sudo dropdb --if-exists --username="$PGUSER" --host="$PGHOST" "$PGDATABASE"
